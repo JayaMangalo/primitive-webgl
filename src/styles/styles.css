@@ -30,3 +30,6 @@ img{
 img:hover{
     background-color: grey
 }
+
+.selected{background-color: lightblue;}
+img.selected:hover{background-color: blue}
