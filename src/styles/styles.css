@@ -1,0 +1,32 @@
+.head1 {
+    color : darkcyan
+}
+
+.parent {
+    display: grid;
+    grid-template-columns: 20% 80%;
+    grid-template-rows: 10% 70% 20%;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    }
+
+.header { grid-area: 1 / 1 / 2 / 3; }
+.toolbar { grid-area: 2 / 1 / 4 / 2; }
+.canvas { grid-area: 2 / 2 / 3 / 3; }
+.footer { grid-area: 3 / 2 / 4 / 3; }
+
+.header{background-color: #AAAAAA;}
+
+.toolbar{
+    background-color: grey;
+}
+.footer{background-color: red;}
+
+img{
+    background-color: white;
+    max-width: 30px;
+}
+
+img:hover{
+    background-color: grey
+}
