@@ -3,8 +3,8 @@
 // Setup canvas
 const canvas = document.getElementById('gl-canvas');
 const canvascontainer = document.getElementById("canvas");// GUA GATAU KNP GET ELEMENTS BY CLASS NAME GABISA 
-canvas.width = canvascontainer.clientWidth;   // THIS BREAKS A LOT, HARUS DI FIX
-canvas.height = canvascontainer.clientWidth;
+// canvas.width = canvascontainer.clientWidth;   // THIS BREAKS A LOT, HARUS DI FIX
+// canvas.height = canvascontainer.clientWidth;
 const gl = canvas.getContext('webgl2');
 if (!gl) {
     alert("Your browser does not support WebGL bro, so sad");

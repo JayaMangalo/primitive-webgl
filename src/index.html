@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2D Web Based CAD </title>
-    <script type="text/javascript" src="js/utility.js"></script>
+    <!-- <script type="text/javascript" src="js/utility.js"></script> -->
     <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
@@ -32,14 +32,24 @@
             
         </div>
         <div class ="canvas" id = "canvas"> <!-- GUA GATAU KNP GET ELEMENTS BY CLASS NAME GABISA -->
-            <canvas id="gl-canvas"></canvas>
+            <canvas id="gl-canvas" height= "800" width="800"></canvas>
         </div>
-        <div class="footer"></div>
+        <div class="footer">
+            <div class="slidecontainer">
+                <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+              </div>
+        </div>
     </div>
     
 
     
 </body>
-<script type="text/javascript" src="js/script.js"></script>
+<script type="text/javascript" src="js/canvas.js"></script>
+<script type="text/javascript" src="js/models/line.js"></script>
+<script type="text/javascript" src="js/models/rectangle.js"></script>
+<script type="text/javascript" src="js/models/square.js"></script>
+<script type="text/javascript" src="js/models/polygon.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
+
 </html>
