@@ -47,6 +47,7 @@ class Rectangle{
         gl.bindBuffer(gl.ARRAY_BUFFER,  this.CBuffer);
         gl.bufferData(gl.ARRAY_BUFFER,  new Float32Array(this.vertexAttributes.color.data), gl.STATIC_DRAW);
     }
+    
     bind(){
         gl.bindBuffer(gl.ARRAY_BUFFER,this.VBuffer);
         gl.vertexAttribPointer(this.positionAttribLocation,

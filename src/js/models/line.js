@@ -1,31 +1,30 @@
 class Line{
-    constructor(coordinates,color){
-        this.coordinates=coordinates;
-        this.color=color;
-        //CHANGE THIS 
+    constructor(coordinates, color){
+        this.coordinates = coordinates;
+        this.color = color;
 
-        // let x1 = coordinates[0][0];
-        // let y1 = coordinates[0][1];
-        // let x2 = coordinates[1][0];
-        // let y2 = coordinates[1][1];
+        let x1 = coordinates[0][0];
+        let y1 = coordinates[0][1];
+        let x2 = coordinates[1][0];
+        let y2 = coordinates[1][1];
 
-        // let colordata = []
-        // for(var i=0; i<4; i++) {
-        //     colordata = colordata.concat(color)
-        // }
+        let colordata = []
+        for(var i=0; i<4; i++) {
+            colordata = colordata.concat(color)
+        }
 
-        // this.vertexAttributes = {
-        //     position: {
-        //         numberOfComponents: 2, // X and Y ordered pair coordinates
-        //         data: new Float32Array([x1,y1,x1,y2,x2,y2,x2,y1])
-        //     },
-        //     color: {
-        //         numberOfComponents: 3, // RGB triple
-        //         data: colordata
-        //     }
-        // };
+        this.vertexAttributes = {
+            position: {
+                numberOfComponents: 2, // X and Y ordered pair coordinates
+                data: new Float32Array([x1,y1,x2,y2])
+            },
+            color: {
+                numberOfComponents: 3, // RGB triple
+                data: colordata
+            }
+        };
         
-        // this.initBuffers()
+        this.initBuffers()
     }
 
     initBuffers() {
@@ -63,8 +62,7 @@ class Line{
     }
     render(){
         this.bind()
-        //CHANGETHIS
-        // gl.drawArrays( gl.TRIANGLE_FAN, 0, 4);
+        gl.drawArrays(gl.LINES, 0, 2);
     }
 
 }
