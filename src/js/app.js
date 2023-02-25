@@ -1,6 +1,7 @@
     var coordinates = [];
     var lObjects = [];
 
+    const colorpicker = document.getElementById('colorpicker');
 
     let CANVAS_OFFSET_X = 100; //THIS IS A FIX FOR THE CANVAS GETTING PUSHED RIGHT DOWN BY TOOLBARS, NOT THE BEST FIX BUT WORKS
     let CANVAS_OFFSET_Y = 60;
@@ -14,7 +15,7 @@
         coordinates.push(coordinate)
 
         if(coordinates.length == 2){
-            model = new Line(coordinates,[0,0,0]);
+            model = new Line(coordinates,getColor());
             coordinates = [];
             
             lObjects.push(model);
@@ -23,12 +24,11 @@
     }
     
     function createRectangle(event){
-
             coordinate  = getCoordinate(event)
             coordinates.push(coordinate)
 
             if(coordinates.length == 2){
-                model = new Rectangle(coordinates,[0.3,0.2,0]);
+                model = new Rectangle(coordinates,getColor());
                 coordinates = [];
                 
                 lObjects.push(model);
@@ -42,7 +42,7 @@
             coordinates.push(coordinate)
 
             if(coordinates.length == 2){
-                model = new Square(coordinates,[0,0,0]);
+                model = new Square(coordinates,getColor());
                 coordinates = [];
                 
                 lObjects.push(model);
@@ -76,4 +76,22 @@
         }
     }
 
+    function getColor(){
+        hex = colorpicker.value
+        rgb = ['0x' + hex[1] + hex[2] | 0, '0x' + hex[3] + hex[4] | 0, '0x' + hex[5] + hex[6] | 0];
+        
+        dividedNum = num => num/255;
+        rgb_divided = rgb.map(dividedNum);
+
+        return rgb_divided
+    }
+    function changeColor(event){
+        coordinate  = getCoordinate(event)
+        //TODO get object
+        if(lObjects.length != 0){
+            idx = 0 // Get from selector
+            lObjects[0].changeColor(idx,getColor())
+            render()
+        }
+    }
 

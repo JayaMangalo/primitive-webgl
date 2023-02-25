@@ -8,7 +8,7 @@ if (!gl) {
 
 gl.clearColor(0, 0.6, 0.4, 1);
 // Clear the color buffer with specified color
-gl.clear(gl.COLOR_BUFFER_BIT);
+// gl.clear(gl.COLOR_BUFFER_BIT);
 
 var program = gl.createProgram();// Create a shader program object to store combined shader program
 setupShader(gl,program)

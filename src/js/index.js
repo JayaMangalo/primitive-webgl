@@ -2,6 +2,7 @@ const line = document.getElementById('line');
 const square = document.getElementById('square');
 const rectangle = document.getElementById('rectangle');
 const polygon = document.getElementById('polygon');
+const changecolor = document.getElementById('changecolor');
 
 const save = document.getElementById('save');
 const load = document.getElementById('load');
@@ -82,6 +83,24 @@ polygon.addEventListener('click',function() {
         selected = null;
     }
 })
+changecolor.addEventListener('click',function() {
+    if (selected != "changecolor") {
+        //SELECT
+        if(selected != null) {
+            document.getElementById(selected).removeAttribute("class","selected");
+            removeCanvasEventListener(selected)
+        }
+        changecolor.setAttribute("class","selected")
+        canvas.addEventListener("mousedown", changeColor);
+        selected = "changecolor";
+
+    } else {
+        //DESELECT
+        changecolor.removeAttribute("class","selected")
+        canvas.removeEventListener("mousedown", changeColor);
+        selected = null;
+    }
+})
 
 // save.addEventListener('click',function(){
     // DOSOMETHING
@@ -100,6 +119,8 @@ function removeCanvasEventListener(selected) {
     } else if (selected == "rectangle") {
         canvas.removeEventListener("mousedown", createRectangle);
     } else if (selected == "polygon") {
+        canvas.removeEventListener("mousedown", createPolygon);
+    } else if (selected == "changecolor") {
         canvas.removeEventListener("mousedown", createPolygon);
     }
 }
