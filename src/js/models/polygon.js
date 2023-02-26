@@ -37,6 +37,28 @@ class Polygon{
         this.colorAttribLocation = gl.getAttribLocation(program, 'vertColor');
     }
 
+    getClosestPointId(coordinate){
+        let min = 99999
+        let currid = 0
+        let curr = 0
+        for (let i = 0; i < this.coordinatesdata.length/2; i++) {
+            curr = Math.pow((coordinate[0] - this.coordinatesdata[i*2]),2) + Math.pow(coordinate[1] - this.coordinatesdata[(i*2)+1],2)
+            if (min > curr){
+                min  = curr
+                currid = i
+            }
+        }
+        return currid
+    }
+
+    changeColor(idx,color){
+        this.vertexAttributes.color.data[idx*3]=color[0]
+        this.vertexAttributes.color.data[(idx*3)+1]=color[1]
+        this.vertexAttributes.color.data[(idx*3)+2]=color[2]
+        gl.bindBuffer(gl.ARRAY_BUFFER,  this.CBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER,  new Float32Array(this.vertexAttributes.color.data), gl.STATIC_DRAW);
+    }
+
     setCenterX() {
         this.centerx = 0
         for (var i = 0; i < this.coordinatesdata.length/2; i++) {
@@ -118,13 +140,56 @@ class Polygon{
         gl.bufferData(gl.ARRAY_BUFFER,  new Float32Array(this.vertexAttributes.position.data), gl.STATIC_DRAW);
     }
 
-    changeColor(idx,color){
-        this.vertexAttributes.color.data[idx*3]=color[0]
-        this.vertexAttributes.color.data[(idx*3)+1]=color[1]
-        this.vertexAttributes.color.data[(idx*3)+2]=color[2]
-        gl.bindBuffer(gl.ARRAY_BUFFER,  this.CBuffer);
-        gl.bufferData(gl.ARRAY_BUFFER,  new Float32Array(this.vertexAttributes.color.data), gl.STATIC_DRAW);
+
+    changePointbyX(idx,coordinateX,isLocked){
+        if(isLocked){
+            this.setCenterX()
+            this.setCenterY()
+            let distcurr = this.centerx - this.coordinatesdata[idx*2]  
+            let distnew = this.centerx - coordinateX
+
+            let ratio = distnew/distcurr
+            console.log(this.coordinatesdata)
+            for (let i = 0; i < this.coordinatesdata.length/2; i++) {
+                
+                this.coordinatesdata[i*2] = this.centerx + (this.coordinatesdata[i*2]-this.centerx) * ratio
+                this.coordinatesdata[(i*2)+1] = this.centery + (this.coordinatesdata[(i*2)+1]-this.centery) * ratio
+            }
+            console.log(this.coordinatesdata)
+        }else{
+            this.coordinatesdata[idx*2] = coordinateX
+            this.setCenterX()
+        }
+        this.vertexAttributes.position.data = this.coordinatesdata
+
+        gl.bindBuffer(gl.ARRAY_BUFFER,  this.VBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER,  new Float32Array(this.vertexAttributes.position.data), gl.STATIC_DRAW);
     }
+
+    changePointbyY(idx,coordinateY,isLocked){
+        if(isLocked){
+            this.setCenterX()
+            this.setCenterY()
+            let distcurr = this.centery- this.coordinatesdata[(idx*2)+1]
+            let distnew = this.centery - coordinateY  
+
+            let ratio = distnew/distcurr
+
+            for (let i = 0; i < this.coordinatesdata.length/2; i++) {
+                this.coordinatesdata[i*2] = this.centerx + (this.coordinatesdata[i*2]-this.centerx) * ratio
+                this.coordinatesdata[(i*2)+1] = this.centery + (this.coordinatesdata[(i*2)+1]-this.centery) * ratio
+            }
+        }else{
+            this.coordinatesdata[(idx*2)+1] = coordinateY
+            this.setCenterY()
+        }
+
+        this.vertexAttributes.position.data = this.coordinatesdata
+
+        gl.bindBuffer(gl.ARRAY_BUFFER,  this.VBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER,  new Float32Array(this.vertexAttributes.position.data), gl.STATIC_DRAW);
+    }
+
     bind(){
         gl.bindBuffer(gl.ARRAY_BUFFER,this.VBuffer);
         gl.vertexAttribPointer(this.positionAttribLocation,
