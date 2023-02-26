@@ -116,6 +116,19 @@
             render()
         }
     }
+    function sliderTranslationX() {
+        if(object!=null){
+            object.translationX(getSliderPointX())
+            render()
+        }
+    }
+
+    function sliderTranslationY() {
+        if(object!=null){
+            object.translationY(getSliderPointY())
+            render()
+        }
+    }
 
     function getSliderPointY(){
         var val = sliderY.value/100

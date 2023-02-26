@@ -8,6 +8,8 @@ const changecolor = document.getElementById('changecolor');
 const resize = document.getElementById('resize');
 const lock = document.getElementById('lock');
 
+const translasi = document.getElementById('translasi');
+
 const save = document.getElementById('save');
 const load = document.getElementById('load');
 
@@ -136,6 +138,29 @@ resize.addEventListener('click',function() {
         selected = null;
     }
 })
+
+translasi.addEventListener('click',function() {
+    if (selected != "translasi") {
+        //SELECT
+        if(selected != null) {
+            document.getElementById(selected).removeAttribute("class","selected");
+            removeCanvasEventListener(selected)
+        }
+        translasi.setAttribute("class","selected")
+
+        canvas.addEventListener("mousedown", objectPicker);
+        sliderX.addEventListener("input", sliderTranslationX);
+        sliderY.addEventListener("input", sliderTranslationY);
+
+        selected = "translasi";
+
+    } else {
+        //DESELECT
+        translasi.removeAttribute("class","selected")
+        removeCanvasEventListener(selected)
+        selected = null;
+    }
+})
 // save.addEventListener('click',function(){
     // DOSOMETHING
 // })
@@ -153,7 +178,6 @@ lock.addEventListener('click',function(){
     }
 })
 
-
 function removeCanvasEventListener(selected) {
     if (selected == "line") {
         canvas.removeEventListener("mousedown", createLine);
@@ -168,5 +192,10 @@ function removeCanvasEventListener(selected) {
     } else if (selected == "resize"){
         sliderX.removeEventListener("input",sliderChangePointX);
         sliderY.removeEventListener("input",sliderChangePointY);
+        canvas.removeEventListener("mousedown", objectPicker);
+    } else if (selected == "translasi"){
+        sliderX.removeEventListener("input",sliderTranslationX);
+        sliderY.removeEventListener("input",sliderTranslationY);
+        canvas.removeEventListener("mousedown", objectPicker);
     }
 }

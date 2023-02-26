@@ -66,6 +66,48 @@ class Rectangle{
         gl.bufferData(gl.ARRAY_BUFFER,  new Float32Array(this.vertexAttributes.color.data), gl.STATIC_DRAW);
     }
 
+    setCenterX() {
+        this.centerx = (this.coordinatesdata[0]+this.coordinatesdata[4])/2;
+    }
+
+    setCenterY() {
+        this.centery = (this.coordinatesdata[1]+this.coordinatesdata[3])/2;
+    }
+
+    translationX(coordinateX) {
+        this.setCenterX()
+        for (var i = 0; i < this.coordinatesdata.length/2; i++) {
+            let distanceX = Math.abs(this.coordinatesdata[i*2] - this.centerx)
+
+            if (this.coordinatesdata[i*2] > this.centerx) {
+                this.coordinatesdata[i*2] = coordinateX + distanceX
+            } else {
+                this.coordinatesdata[i*2] = coordinateX - distanceX
+            }
+        }
+        this.vertexAttributes.position.data = this.coordinatesdata
+
+        gl.bindBuffer(gl.ARRAY_BUFFER,  this.VBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER,  new Float32Array(this.vertexAttributes.position.data), gl.STATIC_DRAW);
+    }
+
+    translationY(coordinateY) {
+        this.setCenterY()
+        for (var i = 0; i < this.coordinatesdata.length/2; i++) {
+            let distanceY = Math.abs(this.coordinatesdata[i*2 + 1] - this.centery)
+
+            if (this.coordinatesdata[i*2 + 1] > this.centery) {
+                this.coordinatesdata[i*2 + 1] = coordinateY + distanceY
+            } else {
+                this.coordinatesdata[i*2 + 1] = coordinateY - distanceY
+            }
+        }
+        this.vertexAttributes.position.data = this.coordinatesdata
+
+        gl.bindBuffer(gl.ARRAY_BUFFER,  this.VBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER,  new Float32Array(this.vertexAttributes.position.data), gl.STATIC_DRAW);
+    }
+
     changePointbyX(idx,coordinateX,isLocked){
         if(isLocked){
             let distcurr = this.centerx - this.coordinatesdata[idx*2]  

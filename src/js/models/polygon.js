@@ -37,6 +37,56 @@ class Polygon{
         this.colorAttribLocation = gl.getAttribLocation(program, 'vertColor');
     }
 
+    setCenterX() {
+        this.centerx = 0
+        for (var i = 0; i < this.coordinatesdata.length/2; i++) {
+            this.centerx += this.coordinatesdata[2*i]
+        }
+        this.centerx = this.centerx/(this.coordinatesdata.length/2);
+    }
+
+    setCenterY() {
+        this.centery = 0
+        for (var i = 0; i < this.coordinatesdata.length/2; i++) {
+            this.centery += this.coordinatesdata[2*i + 1]
+        }
+        this.centery = this.centery/(this.coordinatesdata.length/2);
+    }
+
+    translationX(coordinateX) {
+        this.setCenterX()
+        for (var i = 0; i < this.coordinatesdata.length/2; i++) {
+            let distanceX = Math.abs(this.coordinatesdata[i*2] - this.centerx)
+
+            if (this.coordinatesdata[i*2] > this.centerx) {
+                this.coordinatesdata[i*2] = coordinateX + distanceX
+            } else {
+                this.coordinatesdata[i*2] = coordinateX - distanceX
+            }
+        }
+        this.vertexAttributes.position.data = this.coordinatesdata
+
+        gl.bindBuffer(gl.ARRAY_BUFFER,  this.VBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER,  new Float32Array(this.vertexAttributes.position.data), gl.STATIC_DRAW);
+    }
+
+    translationY(coordinateY) {
+        this.setCenterY()
+        for (var i = 0; i < this.coordinatesdata.length/2; i++) {
+            let distanceY = Math.abs(this.coordinatesdata[i*2 + 1] - this.centery)
+
+            if (this.coordinatesdata[i*2 + 1] > this.centery) {
+                this.coordinatesdata[i*2 + 1] = coordinateY + distanceY
+            } else {
+                this.coordinatesdata[i*2 + 1] = coordinateY - distanceY
+            }
+        }
+        this.vertexAttributes.position.data = this.coordinatesdata
+
+        gl.bindBuffer(gl.ARRAY_BUFFER,  this.VBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER,  new Float32Array(this.vertexAttributes.position.data), gl.STATIC_DRAW);
+    }
+
     changeColor(idx,color){
         this.vertexAttributes.color.data[idx*3]=color[0]
         this.vertexAttributes.color.data[(idx*3)+1]=color[1]
