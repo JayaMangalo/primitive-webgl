@@ -66,15 +66,21 @@ class Line{
         gl.bufferData(gl.ARRAY_BUFFER,  new Float32Array(this.vertexAttributes.color.data), gl.STATIC_DRAW);
     }
 
-    changePointbyX(idx,coordinateX){
-        let distcurr = this.centerx - this.coordinatesdata[idx*2]  
-        let distnew = this.centerx - coordinateX
+    changePointbyX(idx,coordinateX,isLocked){
+        if(isLocked){
+            let distcurr = this.centerx - this.coordinatesdata[idx*2]  
+            let distnew = this.centerx - coordinateX
 
-        let ratio = distnew/distcurr
-        for (let i = 0; i < 2; i++) {
-            this.coordinatesdata[i*2] = this.centerx + (this.coordinatesdata[i*2]-this.centerx) * ratio
-            this.coordinatesdata[(i*2)+1] = this.centery + (this.coordinatesdata[(i*2)+1]-this.centery) * ratio
+            let ratio = distnew/distcurr
+            for (let i = 0; i < 2; i++) {
+                this.coordinatesdata[i*2] = this.centerx + (this.coordinatesdata[i*2]-this.centerx) * ratio
+                this.coordinatesdata[(i*2)+1] = this.centery + (this.coordinatesdata[(i*2)+1]-this.centery) * ratio
+            }
+        }else{
+            this.coordinatesdata[idx*2] = coordinateX
+            this.centerx = (this.coordinatesdata[0]+this.coordinatesdata[2])/2;
         }
+        
 
         this.vertexAttributes.position.data = this.coordinatesdata
 
@@ -82,16 +88,22 @@ class Line{
         gl.bufferData(gl.ARRAY_BUFFER,  new Float32Array(this.vertexAttributes.position.data), gl.STATIC_DRAW);
     }
 
-    changePointbyY(idx,coordinateY){
-        let distcurr = this.centery- this.coordinates[(idx*2)+1]
-        let distnew = this.centery - coordinateY  
+    changePointbyY(idx,coordinateY,isLocked){
+        if(isLocked){
+            let distcurr = this.centery- this.coordinates[(idx*2)+1]
+            let distnew = this.centery - coordinateY  
 
-        let ratio = distnew/distcurr
+            let ratio = distnew/distcurr
 
-        for (let i = 0; i < 2; i++) {
-            this.coordinatesdata[i*2] = this.centerx + (this.coordinatesdata[i*2]-this.centerx) * ratio
-            this.coordinatesdata[(i*2)+1] = this.centery + (this.coordinatesdata[(i*2)+1]-this.centery) * ratio
+            for (let i = 0; i < 2; i++) {
+                this.coordinatesdata[i*2] = this.centerx + (this.coordinatesdata[i*2]-this.centerx) * ratio
+                this.coordinatesdata[(i*2)+1] = this.centery + (this.coordinatesdata[(i*2)+1]-this.centery) * ratio
+            }
+        }else{
+            this.coordinatesdata[(idx*2)+1] = coordinateY
+            this.centery = (this.coordinatesdata[1]+this.coordinatesdata[3])/2;
         }
+        
 
         this.vertexAttributes.position.data = this.coordinatesdata
 

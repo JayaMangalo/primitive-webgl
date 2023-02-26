@@ -99,13 +99,14 @@
         }
     }
 
+    var isLocked = false;
     function getSliderPointX(){
         var val = sliderX.value/100
         return val;
     }
     function sliderChangePointX(){
         if(object!=null){
-            object.changePointbyX(idxpicked,getSliderPointX())
+            object.changePointbyX(idxpicked,getSliderPointX(),isLocked)
             render()
         }
     }
@@ -116,7 +117,7 @@
     }
     function sliderChangePointY(){
         if(object!=null){
-            object.changePointbyY(idxpicked,getSliderPointY())
+            object.changePointbyY(idxpicked,getSliderPointY(),isLocked)
             render()
         }
     }

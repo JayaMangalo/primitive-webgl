@@ -6,6 +6,7 @@ const end_polygon = document.getElementById('end_polygon')
 const changecolor = document.getElementById('changecolor');
 
 const resize = document.getElementById('resize');
+const lock = document.getElementById('lock');
 
 const save = document.getElementById('save');
 const load = document.getElementById('load');
@@ -29,7 +30,7 @@ line.addEventListener('click',function() {
     } else {
         //DESELECT
         line.removeAttribute("class","selected")
-        canvas.removeEventListener("mousedown", createLine);
+        removeCanvasEventListener(selected)
         selected = null;
     }
 })
@@ -48,7 +49,7 @@ square.addEventListener('click',function() {
     } else {
         //DESELECT
         square.removeAttribute("class","selected")
-        canvas.removeEventListener("mousedown", createSquare);
+        removeCanvasEventListener(selected)
         selected = null;
     }
 })
@@ -67,7 +68,7 @@ rectangle.addEventListener('click',function() {
     } else {
         //DESELECT
         rectangle.removeAttribute("class","selected")
-        canvas.removeEventListener("mousedown", createRectangle);
+        removeCanvasEventListener(selected)
         selected = null;
     }
 })
@@ -85,7 +86,7 @@ polygon.addEventListener('click',function() {
     } else {
         //DESELECT
         polygon.removeAttribute("class","selected")
-        canvas.removeEventListener("mousedown", createPolygon);
+        removeCanvasEventListener(selected)
         selected = null;
     }
 })
@@ -101,13 +102,13 @@ changecolor.addEventListener('click',function() {
             removeCanvasEventListener(selected)
         }
         changecolor.setAttribute("class","selected")
-        canvas.addEventListener("mousedown", changeColor);
+        removeCanvasEventListener(selected)
         selected = "changecolor";
 
     } else {
         //DESELECT
         changecolor.removeAttribute("class","selected")
-        canvas.removeEventListener("mousedown", changeColor);
+        removeCanvasEventListener(selected)
         selected = null;
     }
 })
@@ -129,10 +130,9 @@ resize.addEventListener('click',function() {
 
     } else {
         //DESELECT
+        
         resize.removeAttribute("class","selected")
-        canvas.removeEventListener("mousedown", objectPicker);
-        sliderX.removeEventListener("input",sliderChangePointX);
-        sliderY.removeEventListener("input",sliderChangePointY);
+        removeCanvasEventListener(selected)
         selected = null;
     }
 })
@@ -143,6 +143,15 @@ resize.addEventListener('click',function() {
 // load.addEventListener('click',function(){
     // DOSOMETHING
 // })
+lock.addEventListener('click',function(){
+    if(isLocked){
+        lock.removeAttribute("class","selected")
+        isLocked = false
+    }else{
+        lock.setAttribute("class","selected")
+        isLocked = true
+    }
+})
 
 
 function removeCanvasEventListener(selected) {
