@@ -83,7 +83,7 @@ class Rectangle{
     }
 
     changePointbyY(idx,coordinateY){
-        let distcurr = this.centery- this.coordinates[(idx*2)+1]
+        let distcurr = this.centery- this.coordinatesdata[(idx*2)+1]
         let distnew = this.centery - coordinateY  
 
         let ratio = distnew/distcurr
