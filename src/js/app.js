@@ -52,12 +52,9 @@
     function createPolygon(event){
         coordinate  = getCoordinate(event)
         coordinates.push(coordinate)
-        console.log(coordinate)
     }
 
     function endCreatePolygon() {
-        console.log("end create")
-        console.log()
         model = new Polygon(coordinates,getColor());
         coordinates = [];
         

@@ -1,14 +1,10 @@
 class Polygon{
     constructor(coordinates,color){
         this.coordinatesdata = []
-        console.log(this.coordinatesdata)
         for(var i = 0; i < coordinates.length; i++) {
-            console.log(coordinates[i][0])
-            console.log(coordinates[i][1])
             this.coordinatesdata.push(coordinates[i][0]);
             this.coordinatesdata.push(coordinates[i][1]);
         }
-        console.log(this.coordinatesdata)
         let colordata = []
         for(var i=0; i<4; i++) {
             colordata = colordata.concat(color)
