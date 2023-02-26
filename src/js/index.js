@@ -13,7 +13,7 @@ const dilatasi = document.getElementById('dilatasi');
 
 const save = document.getElementById('save');
 const load = document.getElementById('load');
-
+const fileInput = document.getElementById('file-input');
 
 const sliderX = document.getElementById('sliderX');
 const sliderY = document.getElementById('sliderY');
@@ -187,13 +187,16 @@ dilatasi.addEventListener('click',function() {
     }
 })
 
-// save.addEventListener('click',function(){
-    // DOSOMETHING
-// })
+save.addEventListener('click',savelObjects)
 
-// load.addEventListener('click',function(){
-    // DOSOMETHING
-// })
+load.addEventListener('click',() => {
+    // simulate a click on the file input element to show the file dialog
+    fileInput.click();
+})
+
+// add a change event listener to the file input element
+fileInput.addEventListener('change', loadlObjects);
+
 lock.addEventListener('click',function(){
     if(isLocked){
         lock.removeAttribute("class","selected")

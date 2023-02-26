@@ -155,3 +155,46 @@
         }
     }
 
+    function savelObjects() {
+        let lObjectsJSON = []
+        for(var i=0; i<lObjects.length; i++) {
+            lObjectsJSON.push(lObjects[i].toJSON())
+        }
+        // save the objects to a JSON file
+        let jsonString = JSON.stringify(lObjects);
+        // Convert the JSON string to a Blob object
+        var blob = new Blob([jsonString], { type: "application/json" });
+
+        // Use the FileSaver.js library to prompt the user to save the file
+        saveAs(blob, "objects.json");
+    }
+
+    function loadlObjects(event) {
+        var file = event.target.files[0]; // Get the selected file
+        var reader = new FileReader(); // Create a FileReader object
+        reader.onload = function() {
+            var fileContents = reader.result; // Get the contents of the file
+            var objects = JSON.parse(fileContents); // Parse the JSON data
+            for (let obj of objects) {
+                switch (obj.type) {
+                  case 'Line':
+                    lObjects.push(Line.fromJSON(obj));
+                    break;
+                  case 'Rectangle':
+                    lObjects.push(Rectangle.fromJSON(obj));
+                    break;
+                  case 'Square':
+                    lObjects.push(Square.fromJSON(obj));
+                    break;
+                  case 'Polygon':
+                    lObjects.push(Polygon.fromJSON(obj));
+                    break;
+                  default:
+                    console.error('Unknown object type:', obj.type);
+                    break;
+                }
+              }
+              render()
+        };
+        reader.readAsText(file); // Read the file as text
+        }

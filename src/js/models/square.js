@@ -27,9 +27,9 @@ class Square{
         this.centerx = (x1+x2)/2;
         this.centery = (y1+y2)/2;
 
-        let colordata = []
+        this.colordata = []
         for(var i=0; i<4; i++) {
-            colordata = colordata.concat(color)
+            this.colordata = this.colordata.concat(color)
         }
 
         this.vertexAttributes = {
@@ -39,11 +39,30 @@ class Square{
             },
             color: {
                 numberOfComponents: 3, // RGB triple
-                data: colordata
+                data: this.colordata
             }
         };
         
         this.initBuffers()
+    }
+
+    toJSON() {
+        let coordinates = [ [this.coordinatesdata[0], this.coordinatesdata[1]],
+                            [this.coordinatesdata[4], this.coordinatesdata[3]] ]
+        let color = []
+        for (var i = 0; i < 3; i++) {
+            color.push(this.colordata[i])
+        }
+        return {
+            type: 'Square',
+            coordinates: coordinates,
+            color: color
+        }
+    }
+
+    static fromJSON(json) {
+        const { coordinates, color } = json;
+        return new Square(coordinates, color);
     }
 
     initBuffers() {

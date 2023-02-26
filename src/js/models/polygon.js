@@ -5,9 +5,9 @@ class Polygon{
             this.coordinatesdata.push(coordinates[i][0]);
             this.coordinatesdata.push(coordinates[i][1]);
         }
-        let colordata = []
+        this.colordata = []
         for(var i=0; i<this.coordinatesdata.length/2; i++) {
-            colordata = colordata.concat(color)
+            this.colordata = this.colordata.concat(color)
         }
 
         this.vertexAttributes = {
@@ -17,11 +17,32 @@ class Polygon{
             },
             color: {
                 numberOfComponents: 3, // RGB triple
-                data: colordata
+                data: this.colordata
             }
         };
         
         this.initBuffers()
+    }
+
+    toJSON() {
+        let coordinates = []
+        for(var i = 0; i < this.coordinatesdata.length; i += 2) {
+            coordinates.push([this.coordinatesdata[i], this.coordinatesdata[i+1]])
+        }
+        let color = []
+        for (var i = 0; i < 3; i++) {
+            color.push(this.colordata[i])
+        }
+        return {
+            type: 'Polygon',
+            coordinates: coordinates,
+            color: color
+        }
+    }
+
+    static fromJSON(json) {
+        const { coordinates, color } = json;
+        return new Polygon(coordinates, color);
     }
 
     initBuffers() {

@@ -1,8 +1,5 @@
 class Line{
     constructor(coordinates, color){
-        this.coordinates = coordinates;
-        this.color = color;
-
         let x1 = coordinates[0][0];
         let y1 = coordinates[0][1];
         let x2 = coordinates[1][0];
@@ -12,9 +9,9 @@ class Line{
         this.centerx = (x1+x2)/2;
         this.centery = (y1+y2)/2;
 
-        let colordata = []
+        this.colordata = []
         for(var i=0; i<2; i++) {
-            colordata = colordata.concat(color)
+            this.colordata = this.colordata.concat(color)
         }
 
         this.vertexAttributes = {
@@ -24,11 +21,30 @@ class Line{
             },
             color: {
                 numberOfComponents: 3, // RGB triple
-                data: colordata
+                data: this.colordata
             }
         };
         
         this.initBuffers()
+    }
+
+    toJSON() {
+        let coordinates = [ [this.coordinatesdata[0], this.coordinatesdata[1]],
+                            [this.coordinatesdata[2], this.coordinatesdata[3]] ]
+        let color = []
+        for (var i = 0; i < 3; i++) {
+            color.push(this.colordata[i])
+        }
+        return {
+            type: 'Line',
+            coordinates: coordinates,
+            color: color
+        }
+    }
+
+    static fromJSON(json) {
+        const { coordinates, color } = json;
+        return new Line(coordinates, color);
     }
 
     initBuffers() {
