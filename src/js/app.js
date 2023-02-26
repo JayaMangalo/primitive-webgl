@@ -2,15 +2,15 @@
     var lObjects = [];
 
     const colorpicker = document.getElementById('colorpicker');
+    const bound = canvas.getBoundingClientRect()
 
-    let CANVAS_OFFSET_X = 100; //THIS IS A FIX FOR THE CANVAS GETTING PUSHED RIGHT DOWN BY TOOLBARS, NOT THE BEST FIX BUT WORKS
-    let CANVAS_OFFSET_Y = 60;
+    let CANVAS_OFFSET_X = bound.left; //THIS IS A FIX FOR THE CANVAS GETTING PUSHED RIGHT DOWN BY TOOLBARS, NOT THE BEST FIX BUT WORKS
+    let CANVAS_OFFSET_Y = bound.top;
     function getCoordinate(event){
         return [2*(event.clientX-CANVAS_OFFSET_X)/canvas.width-1,(2*(canvas.height-event.clientY+CANVAS_OFFSET_Y)/canvas.height)-1];
     }
 
     function createLine(event){
-        console.log("createLine")
         coordinate  = getCoordinate(event)
         coordinates.push(coordinate)
 
@@ -37,7 +37,6 @@
             
     }
     function createSquare(event){
-        console.log("createSquare")
             coordinate  = getCoordinate(event)
             coordinates.push(coordinate)
 
@@ -52,18 +51,16 @@
     }
 
     function createPolygon(event){
-        // coordinate  = getCoordinate(event)
-        // coordinates.push(coordinate)
+        coordinate  = getCoordinate(event)
+        coordinates.push(coordinate)
+    }
 
-        // // CHANGE THIS
-        // // if(coordinates.length == 2){
-        // //     model = new Polygon(coordinates,[0,0,0]);
-        // //     coordinates = [];
-            
-        // //     lObjects.push(model);
-        // //     render()
-        // // }
+    function endCreatePolygon() {
+        model = new Polygon(coordinates,getColor());
+        coordinates = [];
         
+        lObjects.push(model);
+        render()
     }
     
     function render() {
