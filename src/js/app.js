@@ -2,9 +2,10 @@
     var lObjects = [];
 
     const colorpicker = document.getElementById('colorpicker');
+    const bound = canvas.getBoundingClientRect()
 
-    let CANVAS_OFFSET_X = 100; //THIS IS A FIX FOR THE CANVAS GETTING PUSHED RIGHT DOWN BY TOOLBARS, NOT THE BEST FIX BUT WORKS
-    let CANVAS_OFFSET_Y = 60;
+    let CANVAS_OFFSET_X = bound.left; //THIS IS A FIX FOR THE CANVAS GETTING PUSHED RIGHT DOWN BY TOOLBARS, NOT THE BEST FIX BUT WORKS
+    let CANVAS_OFFSET_Y = bound.top;
     function getCoordinate(event){
         return [2*(event.clientX-CANVAS_OFFSET_X)/canvas.width-1,(2*(canvas.height-event.clientY+CANVAS_OFFSET_Y)/canvas.height)-1];
     }
