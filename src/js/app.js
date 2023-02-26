@@ -75,7 +75,17 @@
             lObjects[i].render()
         }
     }
-
+    var object = null
+    var idxpicked = null
+    canvas.addEventListener("mousedown", objectPicker);
+    function objectPicker(event){
+        let coordinate = getCoordinate(event)
+        if(lObjects.length != 0){
+            object = lObjects[lObjects.length-1]
+            idxpicked = object.getClosestPointId(coordinate)
+        }
+    }
+    
     function getColor(){
         hex = colorpicker.value
         rgb = ['0x' + hex[1] + hex[2] | 0, '0x' + hex[3] + hex[4] | 0, '0x' + hex[5] + hex[6] | 0];
@@ -85,12 +95,31 @@
 
         return rgb_divided
     }
-    function changeColor(event){
-        coordinate  = getCoordinate(event)
-        //TODO get object
-        if(lObjects.length != 0){
-            idx = 0 // Get from selector
-            lObjects[0].changeColor(idx,getColor())
+    function changeColor(){
+        if(object!=null){
+            object.changeColor(idxpicked,getColor())
+            render()
+        }
+    }
+
+    function getSliderPointX(){
+        var val = sliderX.value/100
+        return val;
+    }
+    function sliderChangePointX(){
+        if(object!=null){
+            object.changePointbyX(idxpicked,getSliderPointX())
+            render()
+        }
+    }
+
+    function getSliderPointY(){
+        var val = sliderY.value/100
+        return val;
+    }
+    function sliderChangePointY(){
+        if(object!=null){
+            object.changePointbyY(idxpicked,getSliderPointY())
             render()
         }
     }

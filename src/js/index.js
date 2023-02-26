@@ -4,11 +4,17 @@ const rectangle = document.getElementById('rectangle');
 const polygon = document.getElementById('polygon');
 const changecolor = document.getElementById('changecolor');
 
+const resize = document.getElementById('resize');
+
 const save = document.getElementById('save');
 const load = document.getElementById('load');
 
+
+const sliderX = document.getElementById('sliderX');
+// const sliderY = document.getElementById('sliderY');
 var selected = null;
 
+//MODELS
 line.addEventListener('click',function() {
     if(selected != "line") {
         //SELECT
@@ -64,7 +70,6 @@ rectangle.addEventListener('click',function() {
         selected = null;
     }
 })
-
 polygon.addEventListener('click',function() {
     if (selected != "polygon") {
         //SELECT
@@ -83,6 +88,8 @@ polygon.addEventListener('click',function() {
         selected = null;
     }
 })
+
+//TOOLS
 changecolor.addEventListener('click',function() {
     if (selected != "changecolor") {
         //SELECT
@@ -102,6 +109,30 @@ changecolor.addEventListener('click',function() {
     }
 })
 
+resize.addEventListener('click',function() {
+    if (selected != "resize") {
+        //SELECT
+        if(selected != null) {
+            document.getElementById(selected).removeAttribute("class","selected");
+            removeCanvasEventListener(selected)
+        }
+        resize.setAttribute("class","selected")
+
+        canvas.addEventListener("mousedown", objectPicker);
+        sliderX.addEventListener("input",sliderChangePointX);
+        // sliderY.addEventListener("input",sliderChangePointY);
+
+        selected = "resize";
+
+    } else {
+        //DESELECT
+        resize.removeAttribute("class","selected")
+        canvas.removeEventListener("mousedown", objectPicker);
+        sliderX.removeEventListener("input",sliderChangePointX);
+        // sliderY.removeEventListener("input",sliderChangePointY);
+        selected = null;
+    }
+})
 // save.addEventListener('click',function(){
     // DOSOMETHING
 // })
@@ -121,6 +152,10 @@ function removeCanvasEventListener(selected) {
     } else if (selected == "polygon") {
         canvas.removeEventListener("mousedown", createPolygon);
     } else if (selected == "changecolor") {
-        canvas.removeEventListener("mousedown", createPolygon);
+        canvas.removeEventListener("mousedown", changeColor);
+    } else if (selected == "resize"){
+        canvas.removeEventListener("mousedown", objectPicker);
+        sliderX.removeEventListener("input",sliderChangePointX);
+        // sliderY.removeEventListener("input",sliderChangePointY);
     }
 }
