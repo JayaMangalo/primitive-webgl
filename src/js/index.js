@@ -12,7 +12,7 @@ const load = document.getElementById('load');
 
 
 const sliderX = document.getElementById('sliderX');
-// const sliderY = document.getElementById('sliderY');
+const sliderY = document.getElementById('sliderY');
 var selected = null;
 
 //MODELS
@@ -123,7 +123,7 @@ resize.addEventListener('click',function() {
 
         canvas.addEventListener("mousedown", objectPicker);
         sliderX.addEventListener("input",sliderChangePointX);
-        // sliderY.addEventListener("input",sliderChangePointY);
+        sliderY.addEventListener("input",sliderChangePointY);
 
         selected = "resize";
 
@@ -132,7 +132,7 @@ resize.addEventListener('click',function() {
         resize.removeAttribute("class","selected")
         canvas.removeEventListener("mousedown", objectPicker);
         sliderX.removeEventListener("input",sliderChangePointX);
-        // sliderY.removeEventListener("input",sliderChangePointY);
+        sliderY.removeEventListener("input",sliderChangePointY);
         selected = null;
     }
 })
@@ -157,8 +157,7 @@ function removeCanvasEventListener(selected) {
     } else if (selected == "changecolor") {
         canvas.removeEventListener("mousedown", changeColor);
     } else if (selected == "resize"){
-        canvas.removeEventListener("mousedown", objectPicker);
         sliderX.removeEventListener("input",sliderChangePointX);
-        // sliderY.removeEventListener("input",sliderChangePointY);
+        sliderY.removeEventListener("input",sliderChangePointY);
     }
 }
