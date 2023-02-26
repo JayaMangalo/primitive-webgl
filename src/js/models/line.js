@@ -1,5 +1,5 @@
 class Line{
-    constructor(coordinates, color){
+    constructor(coordinates, color,fromfile){
         let x1 = coordinates[0][0];
         let y1 = coordinates[0][1];
         let x2 = coordinates[1][0];
@@ -10,10 +10,14 @@ class Line{
         this.centery = (y1+y2)/2;
 
         this.colordata = []
-        for(var i=0; i<2; i++) {
-            this.colordata = this.colordata.concat(color)
+        if (!fromfile){
+            for(var i=0; i<2; i++) {
+                this.colordata = this.colordata.concat(color)
+            }        
+        }else{
+            this.colordata = color
         }
-
+        
         this.vertexAttributes = {
             position: {
                 numberOfComponents: 2, // X and Y ordered pair coordinates
@@ -31,10 +35,7 @@ class Line{
     toJSON() {
         let coordinates = [ [this.coordinatesdata[0], this.coordinatesdata[1]],
                             [this.coordinatesdata[2], this.coordinatesdata[3]] ]
-        let color = []
-        for (var i = 0; i < 3; i++) {
-            color.push(this.colordata[i])
-        }
+        let color = this.colordata
         return {
             type: 'Line',
             coordinates: coordinates,
@@ -44,7 +45,7 @@ class Line{
 
     static fromJSON(json) {
         const { coordinates, color } = json;
-        return new Line(coordinates, color);
+        return new Line(coordinates, color,true);
     }
 
     initBuffers() {

@@ -1,5 +1,5 @@
 class Square{
-    constructor(coordinates,color){
+    constructor(coordinates,color,fromfile){
         this.coordinates=coordinates;
         this.color=color;
         
@@ -28,9 +28,14 @@ class Square{
         this.centery = (y1+y2)/2;
 
         this.colordata = []
-        for(var i=0; i<4; i++) {
-            this.colordata = this.colordata.concat(color)
+        if (!fromfile){
+            for(var i=0; i<4; i++) {
+                this.colordata = this.colordata.concat(color)
+            }        
+        }else{
+            this.colordata = color
         }
+        
 
         this.vertexAttributes = {
             position: {
@@ -49,10 +54,8 @@ class Square{
     toJSON() {
         let coordinates = [ [this.coordinatesdata[0], this.coordinatesdata[1]],
                             [this.coordinatesdata[4], this.coordinatesdata[3]] ]
-        let color = []
-        for (var i = 0; i < 3; i++) {
-            color.push(this.colordata[i])
-        }
+        let color = this.colordata
+
         return {
             type: 'Square',
             coordinates: coordinates,
@@ -62,7 +65,7 @@ class Square{
 
     static fromJSON(json) {
         const { coordinates, color } = json;
-        return new Square(coordinates, color);
+        return new Square(coordinates, color,true);
     }
 
     initBuffers() {

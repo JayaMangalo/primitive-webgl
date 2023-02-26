@@ -1,14 +1,20 @@
 class Polygon{
-    constructor(coordinates,color){
+    constructor(coordinates,color,fromfile){
         this.coordinatesdata = []
         for(var i = 0; i < coordinates.length; i++) {
             this.coordinatesdata.push(coordinates[i][0]);
             this.coordinatesdata.push(coordinates[i][1]);
         }
-        this.colordata = []
-        for(var i=0; i<this.coordinatesdata.length/2; i++) {
-            this.colordata = this.colordata.concat(color)
+
+        this.colordata=[]
+        if (!fromfile){
+            for(var i=0; i<this.coordinatesdata.length/2; i++) {
+                this.colordata = this.colordata.concat(color)
+            }        
+        }else{
+            this.colordata = color
         }
+        
 
         this.vertexAttributes = {
             position: {
@@ -29,10 +35,7 @@ class Polygon{
         for(var i = 0; i < this.coordinatesdata.length; i += 2) {
             coordinates.push([this.coordinatesdata[i], this.coordinatesdata[i+1]])
         }
-        let color = []
-        for (var i = 0; i < 3; i++) {
-            color.push(this.colordata[i])
-        }
+        let color = this.colordata
         return {
             type: 'Polygon',
             coordinates: coordinates,
@@ -42,7 +45,7 @@ class Polygon{
 
     static fromJSON(json) {
         const { coordinates, color } = json;
-        return new Polygon(coordinates, color);
+        return new Polygon(coordinates, color,true);
     }
 
     initBuffers() {

@@ -15,7 +15,7 @@
         coordinates.push(coordinate)
 
         if(coordinates.length == 2){
-            model = new Line(coordinates,getColor());
+            model = new Line(coordinates,getColor(),false);
             coordinates = [];
             
             lObjects.push(model);
@@ -28,7 +28,7 @@
             coordinates.push(coordinate)
 
             if(coordinates.length == 2){
-                model = new Rectangle(coordinates,getColor());
+                model = new Rectangle(coordinates,getColor(),false);
                 coordinates = [];
                 
                 lObjects.push(model);
@@ -41,7 +41,7 @@
             coordinates.push(coordinate)
 
             if(coordinates.length == 2){
-                model = new Square(coordinates,getColor());
+                model = new Square(coordinates,getColor(),false);
                 coordinates = [];
                 
                 lObjects.push(model);
@@ -60,7 +60,7 @@
             coordinates = [];
             return
         }
-        model = new Polygon(coordinates,getColor());
+        model = new Polygon(coordinates,getColor(),false);
         coordinates = [];
         
         lObjects.push(model);

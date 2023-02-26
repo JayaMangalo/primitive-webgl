@@ -1,5 +1,5 @@
 class Rectangle{
-    constructor(coordinates,color){
+    constructor(coordinates,color,fromfile){
         let x1 = coordinates[0][0];
         let y1 = coordinates[0][1];
         let x2 = coordinates[1][0];
@@ -11,9 +11,14 @@ class Rectangle{
         this.centery = (y1+y2)/2;
 
         this.colordata = []
-        for(var i=0; i<4; i++) {
-            this.colordata = this.colordata.concat(color)
+        if (!fromfile){
+            for(var i=0; i<4; i++) {
+                this.colordata = this.colordata.concat(color)
+            }        
+        }else{
+            this.colordata = color
         }
+        
 
         this.vertexAttributes = {
             position: {
@@ -32,10 +37,8 @@ class Rectangle{
     toJSON() {
         let coordinates = [ [this.coordinatesdata[0], this.coordinatesdata[1]],
                             [this.coordinatesdata[4], this.coordinatesdata[3]] ]
-        let color = []
-        for (var i = 0; i < 3; i++) {
-            color.push(this.colordata[i])
-        }
+
+        let color = this.colordata
         return {
             type: 'Rectangle',
             coordinates: coordinates,
@@ -45,7 +48,7 @@ class Rectangle{
 
     static fromJSON(json) {
         const { coordinates, color } = json;
-        return new Rectangle(coordinates, color);
+        return new Rectangle(coordinates, color,true);
     }
 
     initBuffers() {
