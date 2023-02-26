@@ -102,7 +102,7 @@ changecolor.addEventListener('click',function() {
             removeCanvasEventListener(selected)
         }
         changecolor.setAttribute("class","selected")
-        removeCanvasEventListener(selected)
+        canvas.addEventListener("mousedown", changeColor);
         selected = "changecolor";
 
     } else {
