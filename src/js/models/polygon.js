@@ -6,7 +6,7 @@ class Polygon{
             this.coordinatesdata.push(coordinates[i][1]);
         }
         let colordata = []
-        for(var i=0; i<4; i++) {
+        for(var i=0; i<this.coordinatesdata.length/2; i++) {
             colordata = colordata.concat(color)
         }
 
