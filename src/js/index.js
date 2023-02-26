@@ -2,6 +2,7 @@ const line = document.getElementById('line');
 const square = document.getElementById('square');
 const rectangle = document.getElementById('rectangle');
 const polygon = document.getElementById('polygon');
+const end_polygon = document.getElementById('end_polygon')
 const changecolor = document.getElementById('changecolor');
 
 const resize = document.getElementById('resize');
@@ -88,6 +89,8 @@ polygon.addEventListener('click',function() {
         selected = null;
     }
 })
+
+end_polygon.addEventListener('click', endCreatePolygon)
 
 //TOOLS
 changecolor.addEventListener('click',function() {

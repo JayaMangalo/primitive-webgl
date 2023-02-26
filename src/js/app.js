@@ -10,7 +10,6 @@
     }
 
     function createLine(event){
-        console.log("createLine")
         coordinate  = getCoordinate(event)
         coordinates.push(coordinate)
 
@@ -37,7 +36,6 @@
             
     }
     function createSquare(event){
-        console.log("createSquare")
             coordinate  = getCoordinate(event)
             coordinates.push(coordinate)
 
@@ -52,18 +50,19 @@
     }
 
     function createPolygon(event){
-        // coordinate  = getCoordinate(event)
-        // coordinates.push(coordinate)
+        coordinate  = getCoordinate(event)
+        coordinates.push(coordinate)
+        console.log(coordinate)
+    }
 
-        // // CHANGE THIS
-        // // if(coordinates.length == 2){
-        // //     model = new Polygon(coordinates,[0,0,0]);
-        // //     coordinates = [];
-            
-        // //     lObjects.push(model);
-        // //     render()
-        // // }
+    function endCreatePolygon() {
+        console.log("end create")
+        console.log()
+        model = new Polygon(coordinates,getColor());
+        coordinates = [];
         
+        lObjects.push(model);
+        render()
     }
     
     function render() {
