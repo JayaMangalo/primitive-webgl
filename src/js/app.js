@@ -56,6 +56,10 @@
     }
 
     function endCreatePolygon() {
+        if (coordinates.length <= 2) {
+            coordinates = [];
+            return
+        }
         model = new Polygon(coordinates,getColor());
         coordinates = [];
         
@@ -72,9 +76,11 @@
             lObjects[i].render()
         }
     }
+
     var object = null
     var idxpicked = null
     canvas.addEventListener("mousedown", objectPicker);
+
     function objectPicker(event){
         let coordinate = getCoordinate(event)
         if(lObjects.length != 0){
