@@ -13,7 +13,7 @@ class Line{
         this.centery = (y1+y2)/2;
 
         let colordata = []
-        for(var i=0; i<4; i++) {
+        for(var i=0; i<2; i++) {
             colordata = colordata.concat(color)
         }
 
