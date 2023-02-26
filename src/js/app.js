@@ -130,6 +130,20 @@
         }
     }
 
+    function sliderDilatationX(){
+        if(object!=null){
+            object.dilatationX(idxpicked,getSliderPointX())
+            render()
+        }
+    }
+
+    function sliderDilatationY(){
+        if(object!=null){
+            object.dilatationY(idxpicked,getSliderPointY())
+            render()
+        }
+    }
+
     function getSliderPointY(){
         var val = sliderY.value/100
         return val;

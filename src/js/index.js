@@ -9,6 +9,7 @@ const resize = document.getElementById('resize');
 const lock = document.getElementById('lock');
 
 const translasi = document.getElementById('translasi');
+const dilatasi = document.getElementById('dilatasi');
 
 const save = document.getElementById('save');
 const load = document.getElementById('load');
@@ -161,6 +162,31 @@ translasi.addEventListener('click',function() {
         selected = null;
     }
 })
+
+dilatasi.addEventListener('click',function() {
+    if (selected != "dilatasi") {
+        //SELECT
+        if(selected != null) {
+            document.getElementById(selected).removeAttribute("class","selected");
+            removeCanvasEventListener(selected)
+        }
+        dilatasi.setAttribute("class","selected")
+
+        canvas.addEventListener("mousedown", objectPicker);
+        sliderX.addEventListener("input",sliderDilatationX);
+        sliderY.addEventListener("input",sliderDilatationY);
+
+        selected = "dilatasi";
+
+    } else {
+        //DESELECT
+        
+        dilatasi.removeAttribute("class","selected")
+        removeCanvasEventListener(selected)
+        selected = null;
+    }
+})
+
 // save.addEventListener('click',function(){
     // DOSOMETHING
 // })
@@ -196,6 +222,10 @@ function removeCanvasEventListener(selected) {
     } else if (selected == "translasi"){
         sliderX.removeEventListener("input",sliderTranslationX);
         sliderY.removeEventListener("input",sliderTranslationY);
+        canvas.removeEventListener("mousedown", objectPicker);
+    } else if (selected == "dilatasi"){
+        sliderX.removeEventListener("input",sliderDilatationX);
+        sliderY.removeEventListener("input",sliderDilatationY);
         canvas.removeEventListener("mousedown", objectPicker);
     }
 }

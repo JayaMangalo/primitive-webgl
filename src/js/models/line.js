@@ -108,6 +108,38 @@ class Line{
         gl.bufferData(gl.ARRAY_BUFFER,  new Float32Array(this.vertexAttributes.position.data), gl.STATIC_DRAW);
     }
     
+    dilatationX(idx,coordinateX){
+        let distcurr = this.coordinatesdata[idx*2]  
+        let distnew = coordinateX
+
+        let ratio = distnew/distcurr
+        for (let i = 0; i < 2; i++) {
+            this.coordinatesdata[i*2] = (this.coordinatesdata[i*2]) * ratio
+            this.coordinatesdata[(i*2)+1] = (this.coordinatesdata[(i*2)+1]) * ratio
+        }
+
+        this.vertexAttributes.position.data = this.coordinatesdata
+
+        gl.bindBuffer(gl.ARRAY_BUFFER,  this.VBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER,  new Float32Array(this.vertexAttributes.position.data), gl.STATIC_DRAW);
+    }
+
+    dilatationY(idx,coordinateY){
+        let distcurr = - this.coordinatesdata[idx*2]  
+        let distnew = - coordinateY
+
+        let ratio = distnew/distcurr
+        for (let i = 0; i < 2; i++) {
+            this.coordinatesdata[i*2] = (this.coordinatesdata[i*2]) * ratio
+            this.coordinatesdata[(i*2)+1] = (this.coordinatesdata[(i*2)+1]) * ratio
+        }
+
+        this.vertexAttributes.position.data = this.coordinatesdata
+
+        gl.bindBuffer(gl.ARRAY_BUFFER,  this.VBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER,  new Float32Array(this.vertexAttributes.position.data), gl.STATIC_DRAW);
+    }
+
     changePointbyX(idx,coordinateX,isLocked){
         if(isLocked){
             let distcurr = this.centerx - this.coordinatesdata[idx*2]  
